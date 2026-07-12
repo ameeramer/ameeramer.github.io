@@ -1,0 +1,17 @@
+# Moonshot
+
+> Free screenshot beautifier that runs 100% in the browser. Paste a screenshot,
+> wrap it in a device frame (macOS window, browser, phone) on a gradient
+> backdrop, add captions, and export retina PNGs sized for X/Twitter, OG
+> images, Product Hunt, Instagram, and the App Store. There is no backend:
+> nothing is uploaded, no signup exists, and it works offline after first load.
+
+- [Editor](https://ameeramer.github.io/app/): the tool itself — free, no signup
+- [Landing page](https://ameeramer.github.io/): features, pricing, FAQ
+
+Pricing: free tier includes the full editor with a small watermark on exports.
+Pro is a one-time $29 purchase (no subscription): removes the watermark, adds
+12 premium backdrops and 3x resolution export.
+
+Privacy: images are composited on a local canvas and never leave the browser
+tab. The site is static; there are no upload endpoints.
