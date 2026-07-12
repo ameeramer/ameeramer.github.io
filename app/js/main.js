@@ -147,9 +147,38 @@ window.addEventListener('keydown', (e) => {
   }
 });
 
+// ── Share-look links: style (never the image) serialized into the URL ──
+function encodeLook() {
+  const { canvas, background, frame, layout, text } = state;
+  return btoa(encodeURIComponent(JSON.stringify({ canvas, background, frame, layout, text })));
+}
+
+function applyLookFromHash() {
+  const m = location.hash.match(/^#look=(.+)$/);
+  if (!m) return;
+  try {
+    const look = JSON.parse(decodeURIComponent(atob(m[1])));
+    for (const k of ['canvas', 'background', 'frame', 'layout', 'text']) {
+      if (look[k]) Object.assign(state[k], look[k]);
+    }
+  } catch { /* malformed link — keep current state */ }
+}
+
 // ── Boot ──
 restore();
+applyLookFromHash();
 initUI();
+
+document.getElementById('btn-share').addEventListener('click', async () => {
+  const url = `${location.origin}${location.pathname}#look=${encodeLook()}`;
+  try {
+    await navigator.clipboard.writeText(url);
+    toast('Link copied — it opens Moonshot with this exact look');
+  } catch {
+    toast('Couldn’t reach the clipboard — copy the URL from the address bar instead');
+    location.hash = `look=${encodeLook()}`;
+  }
+});
 markActiveSwatches();
 
 // Sample image so the first paint is beautiful, not blank.
