@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Moonshot Studio — beautiful screenshots in seconds</title>
+<meta name="description" content="Turn raw screenshots into stunning product shots. Frames, gradients, shadows — 100% in your browser, nothing uploaded.">
+<meta property="og:title" content="Moonshot Studio — beautiful screenshots in seconds">
+<meta property="og:description" content="Paste a screenshot, pick a backdrop, export. 100% in your browser.">
+<meta property="og:url" content="https://ameeramer.github.io/app/">
+<meta property="og:image" content="https://ameeramer.github.io/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='42' fill='%23f5b841'/><circle cx='66' cy='42' r='34' fill='%230a0a0c'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Schibsted+Grotesk:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+
+<header class="topbar">
+  <a class="brand" href="../" title="Moonshot home">
+    <svg class="brand-moon" viewBox="0 0 100 100" aria-hidden="true">
+      <circle cx="50" cy="50" r="42" fill="#f5b841"/>
+      <circle cx="66" cy="42" r="34" fill="#0d0d11"/>
+    </svg>
+    <span class="brand-name">Moonshot</span>
+    <span class="brand-tag">STUDIO</span>
+  </a>
+
+  <div class="topbar-actions">
+    <button class="btn ghost" id="btn-surprise" title="Random tasteful style">
+      <span class="spark">✦</span> Surprise me
+    </button>
+    <button class="btn ghost" id="btn-pro">Unlock&nbsp;Pro</button>
+    <span class="pro-badge" id="pro-badge" hidden>PRO</span>
+    <div class="export-group">
+      <select id="export-scale" class="scale-select" title="Export resolution">
+        <option value="1">1×</option>
+        <option value="2" selected>2×</option>
+        <option value="3" data-pro>3× — Pro</option>
+      </select>
+      <button class="btn ghost" id="btn-copy" title="Copy PNG to clipboard">Copy</button>
+      <button class="btn primary" id="btn-export">Export PNG</button>
+    </div>
+  </div>
+</header>
+
+<main class="workspace">
+  <section class="viewport" id="viewport">
+    <canvas id="preview" width="1400" height="900"></canvas>
+    <div class="size-indicator" id="size-indicator">1400 × 900</div>
+    <div class="drop-overlay" id="drop-overlay" hidden>
+      <div class="drop-overlay-inner">Release to import</div>
+    </div>
+  </section>
+
+  <aside class="rail">
+
+    <section class="panel">
+      <h2 class="panel-title">Image</h2>
+      <div class="row">
+        <button class="btn wide" id="btn-upload">Upload screenshot</button>
+      </div>
+      <p class="hint">…or drag &amp; drop anywhere, or paste with <kbd>⌘V</kbd>.
+      Nothing leaves your browser.</p>
+    </section>
+
+    <section class="panel">
+      <h2 class="panel-title">Canvas</h2>
+      <div class="row">
+        <select id="canvas-preset" class="select wide"></select>
+      </div>
+      <div class="row custom-size" id="custom-size" hidden>
+        <label class="mini-field">W <input type="number" id="custom-w" min="320" max="4096" step="10" value="1400"></label>
+        <label class="mini-field">H <input type="number" id="custom-h" min="320" max="4096" step="10" value="900"></label>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2 class="panel-title">Background</h2>
+      <div class="seg" id="bg-mode">
+        <button class="seg-btn active" data-mode="gradient">Gradient</button>
+        <button class="seg-btn" data-mode="solid">Solid</button>
+        <button class="seg-btn" data-mode="transparent">None</button>
+      </div>
+      <div id="gradient-grid" class="swatch-grid"></div>
+      <div id="solid-grid" class="swatch-grid solids" hidden></div>
+      <div class="slider-row" id="noise-row">
+        <span class="slider-label">Grain</span>
+        <input type="range" id="sl-noise" min="0" max="0.4" step="0.01" value="0.12">
+        <output id="out-noise">12</output>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2 class="panel-title">Frame</h2>
+      <div class="seg" id="frame-type">
+        <button class="seg-btn" data-frame="none">None</button>
+        <button class="seg-btn active" data-frame="macos">macOS</button>
+        <button class="seg-btn" data-frame="browser">Browser</button>
+        <button class="seg-btn" data-frame="phone">Phone</button>
+      </div>
+      <div class="row frame-opts" id="frame-opts">
+        <div class="seg small" id="frame-theme">
+          <button class="seg-btn active" data-theme="dark">Dark</button>
+          <button class="seg-btn" data-theme="light">Light</button>
+        </div>
+        <input type="text" id="frame-url" class="text-input" placeholder="yoursite.com" value="moonshot.app" spellcheck="false" hidden>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2 class="panel-title">Layout</h2>
+      <div class="slider-row"><span class="slider-label">Padding</span>
+        <input type="range" id="sl-padding" min="0" max="200" step="2" value="72"><output id="out-padding">72</output></div>
+      <div class="slider-row"><span class="slider-label">Size</span>
+        <input type="range" id="sl-scale" min="0.4" max="1.4" step="0.01" value="1"><output id="out-scale">100</output></div>
+      <div class="slider-row"><span class="slider-label">Corners</span>
+        <input type="range" id="sl-radius" min="0" max="48" step="1" value="14"><output id="out-radius">14</output></div>
+      <div class="slider-row"><span class="slider-label">Tilt</span>
+        <input type="range" id="sl-rotation" min="-10" max="10" step="0.5" value="0"><output id="out-rotation">0</output></div>
+      <div class="slider-row"><span class="slider-label">Shadow</span>
+        <input type="range" id="sl-shadow" min="0" max="100" step="1" value="55"><output id="out-shadow">55</output></div>
+      <div class="slider-row"><span class="slider-label">Nudge&nbsp;Y</span>
+        <input type="range" id="sl-offsety" min="-100" max="100" step="2" value="0"><output id="out-offsety">0</output></div>
+    </section>
+
+    <section class="panel">
+      <h2 class="panel-title">Caption</h2>
+      <div class="row"><input type="text" id="text-heading" class="text-input wide" placeholder="Headline (optional)" maxlength="80"></div>
+      <div class="row"><input type="text" id="text-sub" class="text-input wide" placeholder="Subtext (optional)" maxlength="120"></div>
+      <div class="seg small" id="text-position">
+        <button class="seg-btn active" data-pos="top">Above</button>
+        <button class="seg-btn" data-pos="bottom">Below</button>
+      </div>
+    </section>
+
+    <footer class="rail-footer">
+      <p>Runs 100% locally — your screenshots never leave this tab.</p>
+    </footer>
+  </aside>
+</main>
+
+<dialog id="pro-modal" class="modal">
+  <form method="dialog" class="modal-body">
+    <div class="modal-moon" aria-hidden="true">
+      <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="#f5b841"/><circle cx="66" cy="42" r="34" fill="#141419"/></svg>
+    </div>
+    <h3 class="modal-title">Moonshot <em>Pro</em> — $29 once</h3>
+    <ul class="modal-perks">
+      <li>No watermark on exports</li>
+      <li>12 premium backgrounds</li>
+      <li>3× resolution exports</li>
+      <li>One-time purchase — yours forever</li>
+    </ul>
+    <a class="btn primary wide" id="btn-buy" href="https://gumroad.com" target="_blank" rel="noopener" hidden>Pay by card — $29</a>
+    <div class="modal-divider"><span>pay with ethereum</span></div>
+    <div class="crypto-box">
+      <p class="crypto-step">1 · Send <strong id="eth-amount">≈ $29 in ETH</strong> to</p>
+      <div class="addr-row">
+        <code id="pay-addr"></code>
+        <button class="btn" id="btn-copy-addr" value="none" type="button">Copy</button>
+      </div>
+      <p class="crypto-step">2 · Paste the transaction hash to unlock instantly</p>
+      <div class="license-row">
+        <input type="text" id="tx-input" class="text-input wide" placeholder="0x transaction hash" spellcheck="false" autocomplete="off">
+        <button class="btn" id="btn-verify-tx" value="none">Verify</button>
+      </div>
+      <p class="license-msg" id="tx-msg"></p>
+    </div>
+    <div class="modal-divider"><span>no crypto? pay by card</span></div>
+    <div class="crypto-box">
+      <p class="crypto-step">Buy <strong>$35–40 of ETH</strong> by card (no account needed;
+      covers the provider’s fees) and set the <em>delivery address</em> to the
+      Moonshot address above:</p>
+      <div class="row card-links">
+        <a class="btn wide" href="https://guardarian.com/buy-eth" target="_blank" rel="noopener">Guardarian</a>
+        <a class="btn wide" href="https://simpleswap.io/buy-eth" target="_blank" rel="noopener">SimpleSwap</a>
+      </div>
+      <p class="crypto-step">It arrives in ~10 minutes — then:</p>
+      <button class="btn wide" id="btn-find-pay" value="none">Find my payment &amp; unlock</button>
+      <p class="license-msg" id="find-msg"></p>
+    </div>
+    <div class="modal-divider"><span>have a license key?</span></div>
+    <div class="license-row">
+      <input type="text" id="license-input" class="text-input wide" placeholder="Paste your license key" spellcheck="false" autocomplete="off">
+      <button class="btn" id="btn-activate" value="none">Activate</button>
+    </div>
+    <p class="license-msg" id="license-msg"></p>
+    <button class="modal-close" value="cancel" aria-label="Close">✕</button>
+  </form>
+</dialog>
+
+<input type="file" id="file-input" accept="image/png,image/jpeg,image/webp,image/gif,image/bmp" hidden>
+<div class="toast" id="toast" role="status" popover="manual"></div>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

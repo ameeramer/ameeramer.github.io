@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Moonshot — make every screenshot look like a product shot</title>
+<meta name="description" content="A privacy-first screenshot studio in your browser. Device frames, hand-lit gradients, perfect canvas sizes for X, OG images and Product Hunt. Free to use — nothing ever uploaded.">
+<meta property="og:title" content="Moonshot — make every screenshot look like a product shot">
+<meta property="og:description" content="Beautiful screenshots in seconds. 100% in your browser, nothing uploaded. Free forever tier.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ameeramer.github.io/">
+<meta property="og:image" content="https://ameeramer.github.io/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='42' fill='%23f5b841'/><circle cx='66' cy='42' r='34' fill='%230a0a0c'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Schibsted+Grotesk:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/landing.css">
+</head>
+<body>
+
+<div class="stars" aria-hidden="true"></div>
+
+<header class="nav">
+  <a class="brand" href="./">
+    <svg class="brand-moon" viewBox="0 0 100 100" aria-hidden="true">
+      <circle cx="50" cy="50" r="42" fill="#f5b841"/>
+      <circle cx="66" cy="42" r="34" fill="#0a0a0c"/>
+    </svg>
+    <span class="brand-name">Moonshot</span>
+  </a>
+  <nav class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+    <a class="btn small primary" href="app/">Open the studio</a>
+  </nav>
+</header>
+
+<main>
+
+  <!-- ── Hero ─────────────────────────────────────── -->
+  <section class="hero">
+    <p class="kicker">SCREENSHOT STUDIO · 100% IN YOUR BROWSER</p>
+    <h1>Make every screenshot<br>look like a <em>product shot.</em></h1>
+    <p class="lede">Drop in a raw screenshot. Moonshot wraps it in device frames,
+    hand-lit gradients and studio shadows — then exports pixel-perfect PNGs
+    sized for X, OG images, Product&nbsp;Hunt and the App&nbsp;Store.</p>
+    <div class="hero-cta">
+      <a class="btn big primary" href="app/">Open the studio — it’s free</a>
+      <span class="cta-note">No signup. No upload. Nothing leaves your browser.</span>
+    </div>
+
+    <div class="hero-demo">
+      <div class="demo-chrome">
+        <span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-dot"></span>
+        <span class="demo-title">moonshot studio — live render</span>
+      </div>
+      <canvas id="hero-canvas" width="1400" height="820"></canvas>
+      <div class="demo-caption" id="demo-caption">Lunar Gold · macOS frame</div>
+    </div>
+  </section>
+
+  <!-- ── Logos-ish strip ──────────────────────────── -->
+  <section class="strip">
+    <span>FOR</span> launch tweets <span>·</span> changelogs <span>·</span> Product Hunt gigs
+    <span>·</span> App Store shots <span>·</span> docs <span>·</span> portfolio pieces
+  </section>
+
+  <!-- ── Features ─────────────────────────────────── -->
+  <section class="features" id="features">
+    <h2 class="section-title">Everything between<br><em>“meh, a screenshot”</em> and <em>“take my money.”</em></h2>
+    <div class="feature-grid">
+      <article class="feature">
+        <div class="feature-num">01</div>
+        <h3>Device frames, drawn in vectors</h3>
+        <p>macOS windows, browser chrome with your URL, and phone bezels — rendered
+        programmatically, so they’re crisp at any export size.</p>
+      </article>
+      <article class="feature">
+        <div class="feature-num">02</div>
+        <h3>Hand-lit gradient backdrops</h3>
+        <p>24 curated gradients with soft mesh lighting and film grain. Not a random
+        color picker — palettes that make screenshots pop.</p>
+      </article>
+      <article class="feature">
+        <div class="feature-num">03</div>
+        <h3>Sizes that match where you post</h3>
+        <p>One-click canvases for X posts, OG images, Product Hunt galleries,
+        Instagram, App Store 6.7″ — or any custom size up to 4096px.</p>
+      </article>
+      <article class="feature">
+        <div class="feature-num">04</div>
+        <h3>Private by architecture</h3>
+        <p>There is no server. Your screenshots are processed entirely in your
+        browser tab — close it and nothing persists anywhere.</p>
+      </article>
+      <article class="feature">
+        <div class="feature-num">05</div>
+        <h3>Captions with real typography</h3>
+        <p>Add a serif headline and subtext above or below your shot. Auto-contrast
+        picks readable ink for any backdrop.</p>
+      </article>
+      <article class="feature">
+        <div class="feature-num">06</div>
+        <h3>Retina-ready exports</h3>
+        <p>Export PNGs at 1×, 2× or 3×, or copy straight to your clipboard. What
+        you see in the preview is exactly what renders — same pipeline.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ── Steps ────────────────────────────────────── -->
+  <section class="steps">
+    <div class="step"><span class="step-num">1</span><h4>Paste</h4><p>⌘V a screenshot, or drag any image in.</p></div>
+    <div class="step-arrow">→</div>
+    <div class="step"><span class="step-num">2</span><h4>Style</h4><p>Pick a frame and a backdrop. Or hit <em>Surprise me</em>.</p></div>
+    <div class="step-arrow">→</div>
+    <div class="step"><span class="step-num">3</span><h4>Ship</h4><p>Export a retina PNG sized for wherever it’s going.</p></div>
+  </section>
+
+  <!-- ── Pricing ──────────────────────────────────── -->
+  <section class="pricing" id="pricing">
+    <h2 class="section-title">One price. <em>Zero subscriptions.</em></h2>
+    <div class="price-cards">
+      <div class="price-card">
+        <h3>Free</h3>
+        <div class="price">$0</div>
+        <ul>
+          <li>All frames &amp; canvas sizes</li>
+          <li>12 gradient backdrops</li>
+          <li>1× and 2× PNG export</li>
+          <li>Small “Made with Moonshot” mark</li>
+        </ul>
+        <a class="btn wide" href="app/">Start free</a>
+      </div>
+      <div class="price-card featured">
+        <div class="ribbon">LIFETIME</div>
+        <h3>Pro</h3>
+        <div class="price">$29 <span>once</span></div>
+        <ul>
+          <li>Everything in Free</li>
+          <li><strong>No watermark</strong></li>
+          <li>12 premium backdrops</li>
+          <li>3× resolution exports</li>
+          <li>Every future update included</li>
+        </ul>
+        <a class="btn wide primary" id="buy-link" href="app/#pro">Get Pro — $29</a>
+        <p class="guarantee">Pay with ETH or card (via ETH) in the app · 14-day refund</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FAQ ──────────────────────────────────────── -->
+  <section class="faq" id="faq">
+    <h2 class="section-title">Questions, <em>answered.</em></h2>
+    <details>
+      <summary>Is it really private?</summary>
+      <p>Yes — structurally. Moonshot is a static page with no backend. Images are
+      read into your browser’s memory, composited on a local canvas, and saved from
+      there. Nothing is transmitted, logged, or stored remotely. You can verify
+      this in your browser’s network tab: after the page loads, no requests carry
+      your image anywhere.</p>
+    </details>
+    <details>
+      <summary>What does the free version include?</summary>
+      <p>The full editor — every frame, every canvas size, captions, grain, 2×
+      export. Free exports carry a small, tasteful “Made with Moonshot” mark in
+      the corner. Pro removes it, adds 12 premium backdrops and 3× export.</p>
+    </details>
+    <details>
+      <summary>Is Pro really a one-time purchase?</summary>
+      <p>Yes. Pay once — with ETH directly in the app (verified on-chain,
+      unlocks instantly), or by card once the card checkout opens — and Pro is
+      yours forever, future updates included.</p>
+    </details>
+    <details>
+      <summary>Which browsers work?</summary>
+      <p>Any modern browser — Chrome, Edge, Safari 16+, Firefox. Clipboard-copy
+      works best in Chrome and Safari; classic file export works everywhere.</p>
+    </details>
+    <details>
+      <summary>Can I use exports commercially?</summary>
+      <p>Yes — anything you make with Moonshot is yours, free tier included.</p>
+    </details>
+  </section>
+
+  <!-- ── Final CTA ────────────────────────────────── -->
+  <section class="final-cta">
+    <h2>Your next launch deserves<br>better than a raw screenshot.</h2>
+    <a class="btn big primary" href="app/">Open Moonshot Studio</a>
+    <span class="cta-note">Free · no signup · works offline once loaded</span>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-left">
+    <svg class="brand-moon" viewBox="0 0 100 100" aria-hidden="true">
+      <circle cx="50" cy="50" r="42" fill="#f5b841"/>
+      <circle cx="66" cy="42" r="34" fill="#0a0a0c"/>
+    </svg>
+    <span>Moonshot · Beautiful screenshots, locally.</span>
+  </div>
+  <div class="footer-right">
+    <a href="app/">Studio</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+  </div>
+</footer>
+
+<script type="module" src="js/landing.js"></script>
+</body>
+</html>
