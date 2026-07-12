@@ -498,6 +498,56 @@ main, header.nav, footer { position: relative; z-index: 1; }
   color: var(--ink-faint);
 }
 
+/* ── Comparison ──────────────────────────────────── */
+
+.compare {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 60px 24px 20px;
+}
+
+.compare-table {
+  border: 1px solid var(--seam);
+  border-radius: 14px;
+  overflow: hidden;
+  background: linear-gradient(165deg, #131218, #0e0d12);
+}
+
+.compare-row {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  border-bottom: 1px solid var(--seam-soft);
+}
+
+.compare-row:last-child { border-bottom: 0; }
+
+.compare-row span {
+  padding: 14px 18px;
+  font-size: 14px;
+  color: var(--ink-dim);
+}
+
+.compare-row span:first-child { font-weight: 600; color: var(--ink); }
+
+.compare-head span {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  padding-top: 16px;
+}
+
+.compare-us {
+  background: rgba(245, 184, 65, 0.05);
+  color: var(--gold) !important;
+}
+
+@media (max-width: 700px) {
+  .compare-row { grid-template-columns: 1fr 1fr 1fr; }
+  .compare-row span { padding: 10px; font-size: 12px; }
+}
+
 /* ── FAQ ─────────────────────────────────────────── */
 
 .faq {
