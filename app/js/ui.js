@@ -3,7 +3,7 @@
 
 import { state, set, setPro } from './state.js';
 import { CANVAS_PRESETS, GRADIENTS, SOLIDS, STYLE_PRESETS } from './presets.js';
-import { exportImage, copyToClipboard } from './export.js';
+import { exportImage, exportPack, PACK_PRESETS, copyToClipboard } from './export.js';
 import { verifyLicense, GUMROAD_URL } from './license.js';
 import { PAY_ADDRESS, suggestedEth, verifyPayment, findRecentPayment } from './cryptopay.js';
 import { setBackgroundImage, hasBackgroundImage } from './backgrounds.js';
@@ -278,6 +278,19 @@ export function initUI() {
       toast(err.message || 'Export failed');
     } finally {
       btn.disabled = false; syncExportLabel();
+    }
+  });
+
+  $('#btn-pack').addEventListener('click', async () => {
+    const btn = $('#btn-pack');
+    btn.disabled = true; btn.textContent = 'Exporting…';
+    try {
+      await exportPack(+scaleSel.value, formatSel.value);
+      toast(`Exported ${PACK_PRESETS.length} social sizes — check your downloads`);
+    } catch (err) {
+      toast(err.message || 'Pack export failed');
+    } finally {
+      btn.disabled = false; btn.textContent = 'Pack';
     }
   });
 
