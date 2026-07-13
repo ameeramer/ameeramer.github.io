@@ -341,9 +341,18 @@ export function initUI() {
 
 export function openProModal() {
   $('#pro-modal').showModal();
-  // Fill the live ETH amount once per open; harmless if it races.
+  // Fill the live ETH amount once per open; harmless if it races. Also build
+  // an EIP-681 deep-link so mobile users can tap straight into their wallet
+  // with the address (and amount) prefilled instead of copy-pasting.
+  const walletLink = $('#btn-wallet');
+  const touch = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
   suggestedEth().then(amount => {
     if (amount) $('#eth-amount').textContent = `${amount} ETH (≈ $29)`;
+    if (touch) {
+      const wei = amount ? BigInt(Math.round(amount * 1e18)).toString() : '';
+      walletLink.href = `ethereum:${PAY_ADDRESS}@1${wei ? `?value=${wei}` : ''}`;
+      walletLink.hidden = false;
+    }
   }).catch(() => { /* price feeds down — static hint stays */ });
 }
 
