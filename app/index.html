@@ -71,6 +71,9 @@
       <div class="row">
         <button class="btn wide" id="btn-upload">Upload screenshot</button>
       </div>
+      <div class="row">
+        <button class="btn wide" id="btn-redact">Redact sensitive info</button>
+      </div>
       <p class="hint">…or drag &amp; drop anywhere, or paste with <kbd>⌘V</kbd>.
       Nothing leaves your browser.</p>
     </section>
@@ -151,6 +154,28 @@
     </footer>
   </aside>
 </main>
+
+<dialog id="redact-modal" class="redact-modal">
+  <div class="redact-head">
+    <div>
+      <h3 class="redact-title">Redact sensitive info</h3>
+      <p class="redact-sub">Drag to draw over anything private — it's obscured before it ever leaves your browser.</p>
+    </div>
+    <div class="seg small" id="redact-mode">
+      <button class="seg-btn active" data-rmode="pixelate" type="button">Pixelate</button>
+      <button class="seg-btn" data-rmode="blur" type="button">Blur</button>
+    </div>
+  </div>
+  <div class="redact-stage" id="redact-stage">
+    <canvas id="redact-canvas"></canvas>
+  </div>
+  <div class="redact-actions">
+    <button class="btn" id="btn-redact-clear" type="button">Clear</button>
+    <span class="redact-spacer"></span>
+    <button class="btn" id="btn-redact-cancel" type="button">Cancel</button>
+    <button class="btn primary" id="btn-redact-apply" type="button">Apply</button>
+  </div>
+</dialog>
 
 <dialog id="pro-modal" class="modal">
   <form method="dialog" class="modal-body">

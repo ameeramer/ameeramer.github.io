@@ -5,6 +5,12 @@ import { state, subscribe, restore, setImage } from './state.js';
 import { render, outputSize } from './renderer.js';
 import { makeSampleImage } from './sample.js';
 import { initUI, toast, syncProUI, markActiveSwatches, openProModal } from './ui.js';
+import { openRedactor } from './redact-ui.js';
+
+// The pristine imported bitmap (redaction always works from the original so
+// re-editing never stacks), plus the last redaction session for re-opening.
+let pristineImage = null;
+let redactSession = null;
 
 const preview = document.getElementById('preview');
 const sizeIndicator = document.getElementById('size-indicator');
@@ -75,6 +81,7 @@ async function importFile(file) {
   }
   try {
     const bitmap = await createImageBitmap(file);
+    pristineImage = bitmap; redactSession = null;
     setImage(bitmap, bitmap.width, bitmap.height, file.name);
     toast(`Imported ${file.name} — ${bitmap.width}×${bitmap.height}`);
   } catch {
@@ -82,6 +89,7 @@ async function importFile(file) {
     const url = URL.createObjectURL(file);
     const img = new Image();
     img.onload = () => {
+      pristineImage = img; redactSession = null;
       setImage(img, img.naturalWidth, img.naturalHeight, file.name);
       URL.revokeObjectURL(url);
       toast(`Imported ${file.name}`);
@@ -181,8 +189,23 @@ document.getElementById('btn-share').addEventListener('click', async () => {
 });
 markActiveSwatches();
 
+// ── Redact ──
+document.getElementById('btn-redact').addEventListener('click', () => {
+  if (!pristineImage) { toast('Import a screenshot first'); return; }
+  openRedactor(pristineImage, redactSession, (result, session) => {
+    redactSession = session;
+    const name = (state.imageMeta.name || 'image').replace(/ \(redacted\)$/, '') +
+      (session.rects.length ? ' (redacted)' : '');
+    setImage(result, result.width, result.height, name);
+    toast(session.rects.length
+      ? `${session.rects.length} region${session.rects.length > 1 ? 's' : ''} redacted`
+      : 'Redactions cleared');
+  });
+});
+
 // Sample image so the first paint is beautiful, not blank.
 const sample = makeSampleImage();
+pristineImage = sample; redactSession = null;
 setImage(sample, sample.width, sample.height, 'sample');
 
 // Landing page pricing links here.

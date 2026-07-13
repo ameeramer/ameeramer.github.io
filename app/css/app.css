@@ -594,6 +594,68 @@ input[type="range"]::-moz-range-thumb {
 
 .modal-close:hover { color: var(--ink); }
 
+/* ── Redact overlay ──────────────────────────────────── */
+
+.redact-modal {
+  border: 1px solid var(--seam);
+  border-radius: 16px;
+  background: linear-gradient(160deg, #17161c, #101013);
+  color: var(--ink);
+  padding: 0;
+  width: min(960px, calc(100vw - 40px));
+  max-height: calc(100vh - 60px);
+  box-shadow: 0 40px 120px rgba(0, 0, 0, 0.7);
+}
+
+.redact-modal::backdrop { background: rgba(5, 5, 8, 0.72); backdrop-filter: blur(4px); }
+
+.redact-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 22px 14px;
+  border-bottom: 1px solid var(--seam-soft);
+}
+
+.redact-title {
+  margin: 0 0 4px;
+  font-family: var(--font-disp);
+  font-weight: 400;
+  font-size: 22px;
+}
+
+.redact-sub { margin: 0; font-size: 13px; color: var(--ink-dim); max-width: 52ch; }
+
+.redact-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  min-height: 300px;
+  background:
+    repeating-conic-gradient(#141418 0% 25%, #0f0f13 0% 50%) 0 0 / 22px 22px;
+  overflow: auto;
+}
+
+#redact-canvas {
+  cursor: crosshair;
+  border-radius: 6px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+  touch-action: none;
+  max-width: 100%;
+}
+
+.redact-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 22px 18px;
+  border-top: 1px solid var(--seam-soft);
+}
+
+.redact-spacer { flex: 1; }
+
 /* ── Toast ───────────────────────────────────────────── */
 
 .toast {
