@@ -3,7 +3,7 @@
 
 import { state, set, setPro } from './state.js';
 import { CANVAS_PRESETS, GRADIENTS, SOLIDS, STYLE_PRESETS } from './presets.js';
-import { exportPNG, copyToClipboard } from './export.js';
+import { exportImage, copyToClipboard } from './export.js';
 import { verifyLicense, GUMROAD_URL } from './license.js';
 import { PAY_ADDRESS, suggestedEth, verifyPayment, findRecentPayment } from './cryptopay.js';
 
@@ -221,16 +221,23 @@ export function initUI() {
     }
   });
 
+  const formatSel = $('#export-format');
+  const syncExportLabel = () => {
+    $('#btn-export').textContent =
+      `Export ${formatSel.value === 'jpeg' ? 'JPG' : 'PNG'}`;
+  };
+  formatSel.addEventListener('change', syncExportLabel);
+
   $('#btn-export').addEventListener('click', async () => {
     const btn = $('#btn-export');
     btn.disabled = true; btn.textContent = 'Rendering…';
     try {
-      const name = await exportPNG(+scaleSel.value);
+      const name = await exportImage(+scaleSel.value, formatSel.value);
       toast(`Saved ${name}`);
     } catch (err) {
       toast(err.message || 'Export failed');
     } finally {
-      btn.disabled = false; btn.textContent = 'Export PNG';
+      btn.disabled = false; syncExportLabel();
     }
   });
 

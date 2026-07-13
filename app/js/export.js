@@ -10,12 +10,26 @@ function renderToCanvas(pixelScale) {
   return c;
 }
 
-export async function exportPNG(pixelScale = 2) {
-  const c = renderToCanvas(pixelScale);
-  const blob = await new Promise(res => c.toBlob(res, 'image/png'));
+export async function exportImage(pixelScale = 2, format = 'png') {
+  let c = renderToCanvas(pixelScale);
+  if (format === 'jpeg') {
+    // JPEG has no alpha channel — flatten onto white so transparent
+    // backgrounds don't render black.
+    const flat = document.createElement('canvas');
+    flat.width = c.width;
+    flat.height = c.height;
+    const fx = flat.getContext('2d');
+    fx.fillStyle = '#ffffff';
+    fx.fillRect(0, 0, flat.width, flat.height);
+    fx.drawImage(c, 0, 0);
+    c = flat;
+  }
+  const mime = format === 'jpeg' ? 'image/jpeg' : 'image/png';
+  const blob = await new Promise(res => c.toBlob(res, mime, 0.92));
   if (!blob) throw new Error('Export failed — canvas too large for this browser.');
   const { w, h } = outputSize(state);
-  const name = `moonshot-${w * pixelScale}x${h * pixelScale}.png`;
+  const ext = format === 'jpeg' ? 'jpg' : 'png';
+  const name = `moonshot-${w * pixelScale}x${h * pixelScale}.${ext}`;
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
@@ -24,6 +38,8 @@ export async function exportPNG(pixelScale = 2) {
   setTimeout(() => URL.revokeObjectURL(url), 5000);
   return name;
 }
+
+export const exportPNG = (pixelScale) => exportImage(pixelScale, 'png');
 
 export async function copyToClipboard(pixelScale = 2) {
   if (!navigator.clipboard || !window.ClipboardItem) {
