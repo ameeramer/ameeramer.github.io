@@ -11,6 +11,8 @@ export const CANVAS_PRESETS = [
   { id: 'story',     label: 'Story / Reel',          w: 1080, h: 1920 },
   { id: 'dribbble',  label: 'Dribbble shot',         w: 1600, h: 1200 },
   { id: 'yt',        label: 'YouTube thumbnail',     w: 1280, h: 720 },
+  { id: 'gh-social', label: 'GitHub social preview', w: 1280, h: 640 },
+  { id: 'linkedin',  label: 'LinkedIn post',         w: 1200, h: 627 },
   { id: 'appstore',  label: 'App Store 6.7″',        w: 1290, h: 2796 },
   { id: 'custom',    label: 'Custom…',               w: null, h: null },
 ];
