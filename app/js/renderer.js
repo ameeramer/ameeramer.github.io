@@ -116,6 +116,13 @@ export function render(state, canvas, pixelScale = 1) {
     // Keep the band inside the canvas when content is tall.
     ty = clamp(ty, pad * 0.4, H - bandH - pad * 0.2);
 
+    // Soft halo in the opposite tone so captions stay legible over mesh-lit
+    // gradients that mix light and dark regions. Shadow blur is device-space,
+    // so it scales with pixelScale to match the preview at any export size.
+    ctx.save();
+    ctx.shadowColor = light ? 'rgba(255,255,255,0.55)' : 'rgba(0,0,0,0.5)';
+    ctx.shadowBlur = headingSize * 0.13 * pixelScale;
+
     if (heading.trim()) {
       ctx.font = `400 ${headingSize}px "Instrument Serif", Georgia, serif`;
       ctx.textBaseline = 'top';
@@ -131,6 +138,7 @@ export function render(state, canvas, pixelScale = 1) {
       ctx.fillText(sub.trim(), W / 2, ty, W - pad);
       ctx.globalAlpha = 1;
     }
+    ctx.restore();
     ctx.textAlign = 'left';
   }
 
