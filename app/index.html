@@ -94,10 +94,14 @@
       <div class="seg" id="bg-mode">
         <button class="seg-btn active" data-mode="gradient">Gradient</button>
         <button class="seg-btn" data-mode="solid">Solid</button>
+        <button class="seg-btn" data-mode="image">Image</button>
         <button class="seg-btn" data-mode="transparent">None</button>
       </div>
       <div id="gradient-grid" class="swatch-grid"></div>
       <div id="solid-grid" class="swatch-grid solids" hidden></div>
+      <div class="row" id="bg-image-row" hidden>
+        <button class="btn wide" id="btn-bg-upload">Upload background image</button>
+      </div>
       <div class="slider-row" id="noise-row">
         <span class="slider-label">Grain</span>
         <input type="range" id="sl-noise" min="0" max="0.4" step="0.01" value="0.12">
@@ -229,6 +233,7 @@
 </dialog>
 
 <input type="file" id="file-input" accept="image/png,image/jpeg,image/webp,image/gif,image/bmp" hidden>
+<input type="file" id="bg-file-input" accept="image/png,image/jpeg,image/webp,image/gif,image/bmp" hidden>
 <div class="toast" id="toast" role="status" popover="manual"></div>
 
 <script type="module" src="js/main.js"></script>

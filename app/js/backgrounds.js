@@ -37,13 +37,33 @@ function angleToLine(angle, w, h) {
   ];
 }
 
+// Custom background image lives here (a live bitmap, never serialized —
+// like the foreground screenshot, it's re-uploaded per session).
+let bgImage = null;
+export function setBackgroundImage(bmp) { bgImage = bmp; }
+export function hasBackgroundImage() { return !!bgImage; }
+
+function drawBgCover(ctx, img, w, h) {
+  const scale = Math.max(w / img.width, h / img.height);
+  const dw = img.width * scale, dh = img.height * scale;
+  ctx.drawImage(img, (w - dw) / 2, (h - dh) / 2, dw, dh);
+}
+
 export function paintBackground(ctx, w, h, bg) {
   if (bg.mode === 'transparent') {
     ctx.clearRect(0, 0, w, h);
     return;
   }
 
-  if (bg.mode === 'solid') {
+  if (bg.mode === 'image') {
+    if (bgImage) {
+      drawBgCover(ctx, bgImage, w, h);
+    } else {
+      // No image chosen yet — a neutral placeholder fill.
+      ctx.fillStyle = '#15151b';
+      ctx.fillRect(0, 0, w, h);
+    }
+  } else if (bg.mode === 'solid') {
     ctx.fillStyle = bg.solid;
     ctx.fillRect(0, 0, w, h);
   } else {
@@ -86,6 +106,9 @@ export function paintBackground(ctx, w, h, bg) {
 export function backgroundIsLight(bg) {
   let hex;
   if (bg.mode === 'transparent') return false;
+  // Arbitrary photo — assume dark so captions/watermark use light ink; the
+  // caption halo keeps text legible either way.
+  if (bg.mode === 'image') return false;
   if (bg.mode === 'solid') hex = bg.solid;
   else {
     const g = getGradient(bg.gradientId);

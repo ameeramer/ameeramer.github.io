@@ -6,6 +6,7 @@ import { CANVAS_PRESETS, GRADIENTS, SOLIDS, STYLE_PRESETS } from './presets.js';
 import { exportImage, copyToClipboard } from './export.js';
 import { verifyLicense, GUMROAD_URL } from './license.js';
 import { PAY_ADDRESS, suggestedEth, verifyPayment, findRecentPayment } from './cryptopay.js';
+import { setBackgroundImage, hasBackgroundImage } from './backgrounds.js';
 
 const $ = (sel) => document.querySelector(sel);
 
@@ -81,6 +82,7 @@ export function initUI() {
   const syncBgVisibility = (mode) => {
     $('#gradient-grid').hidden = mode !== 'gradient';
     $('#solid-grid').hidden = mode !== 'solid';
+    $('#bg-image-row').hidden = mode !== 'image';
     $('#noise-row').hidden = mode === 'transparent'; // grain is a no-op there
   };
   bgMode.addEventListener('click', (e) => {
@@ -89,8 +91,28 @@ export function initUI() {
     syncSeg(bgMode, 'mode', btn.dataset.mode);
     syncBgVisibility(btn.dataset.mode);
     set('background', { mode: btn.dataset.mode });
+    // Choosing Image with nothing uploaded yet? open the picker straight away.
+    if (btn.dataset.mode === 'image' && !hasBackgroundImage()) $('#bg-file-input').click();
   });
   syncBgVisibility(state.background.mode);
+
+  // ── Background image upload ──
+  $('#btn-bg-upload').addEventListener('click', () => $('#bg-file-input').click());
+  $('#bg-file-input').addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    e.target.value = '';
+    if (!file || !file.type.startsWith('image/')) { toast('That doesn’t look like an image'); return; }
+    try {
+      const bmp = await createImageBitmap(file);
+      setBackgroundImage(bmp);
+      set('background', { mode: 'image' }); // notify → re-render
+      syncSeg(bgMode, 'mode', 'image');
+      syncBgVisibility('image');
+      toast('Background image set');
+    } catch {
+      toast('Couldn’t read that image');
+    }
+  });
 
   // ── Gradient swatches ──
   const gGrid = $('#gradient-grid');

@@ -1,7 +1,7 @@
 // Offline support for the studio. Stale-while-revalidate: cached shell is
 // served instantly (and offline), while the network quietly refreshes the
 // cache so a redeploy is picked up on the visit after next.
-const CACHE = 'moonshot-v4';
+const CACHE = 'moonshot-v5';
 
 const SHELL = [
   './', './index.html', './css/app.css',
