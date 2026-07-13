@@ -174,6 +174,9 @@ function applyLookFromHash() {
 
 // ── Boot ──
 restore();
+// Background images aren't serialized, so a restored 'image' mode has no
+// bitmap on reload — fall back to gradient instead of showing a blank fill.
+if (state.background.mode === 'image') state.background.mode = 'gradient';
 applyLookFromHash();
 initUI();
 
