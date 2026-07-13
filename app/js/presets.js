@@ -92,6 +92,19 @@ export const GRADIENTS = [
   { id: 'pearl',       label: 'Pearl',       pro: true, angle: 145,
     stops: [[0, '#ffffff'], [0.5, '#f1f0fb'], [1, '#c7d2fe']],
     mesh: [[25, 20, 50, '#ffffff', 0.8], [80, 82, 52, '#a5b4fc', 0.4]] },
+  // Aurora Pack — added 2026-07-13
+  { id: 'tidal',       label: 'Tidal',       pro: true, angle: 155,
+    stops: [[0, '#042f2e'], [0.5, '#0891b2'], [1, '#a5f3fc']],
+    mesh: [[78, 15, 52, '#cffafe', 0.5], [18, 85, 55, '#083344', 0.6]] },
+  { id: 'dusk',        label: 'Dusk',        pro: true, angle: 150,
+    stops: [[0, '#1e1b4b'], [0.45, '#7c3aed'], [1, '#f472b6']],
+    mesh: [[80, 18, 50, '#fbcfe8', 0.45], [15, 82, 55, '#2e1065', 0.6]] },
+  { id: 'clementine',  label: 'Clementine',  pro: true, angle: 135,
+    stops: [[0, '#7c2d12'], [0.5, '#f97316'], [1, '#fde68a']],
+    mesh: [[78, 16, 52, '#fef3c7', 0.5], [18, 85, 55, '#431407', 0.6]] },
+  { id: 'slate-mist',  label: 'Slate Mist',  pro: true, angle: 160,
+    stops: [[0, '#f1f5f9'], [0.5, '#94a3b8'], [1, '#334155']],
+    mesh: [[22, 18, 50, '#ffffff', 0.6], [82, 84, 52, '#1e293b', 0.4]] },
 ];
 
 export const SOLIDS = [
