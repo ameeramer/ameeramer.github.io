@@ -40,7 +40,13 @@ function angleToLine(angle, w, h) {
 // Custom background image lives here (a live bitmap, never serialized —
 // like the foreground screenshot, it's re-uploaded per session).
 let bgImage = null;
-export function setBackgroundImage(bmp) { bgImage = bmp; }
+export function setBackgroundImage(bmp) {
+  // Release the previous decoded bitmap so repeated uploads don't accumulate.
+  if (bgImage && bgImage !== bmp && typeof bgImage.close === 'function') {
+    try { bgImage.close(); } catch { /* already closed */ }
+  }
+  bgImage = bmp;
+}
 export function hasBackgroundImage() { return !!bgImage; }
 
 function drawBgCover(ctx, img, w, h) {
