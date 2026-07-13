@@ -52,15 +52,15 @@
 </header>
 
 <main class="workspace">
-  <section class="viewport" id="viewport">
-    <canvas id="preview" width="1400" height="900"></canvas>
+  <section class="viewport" id="viewport" aria-label="Preview">
+    <canvas id="preview" width="1400" height="900" role="img" aria-label="Live preview of your styled screenshot"></canvas>
     <div class="size-indicator" id="size-indicator">1400 × 900</div>
     <div class="drop-overlay" id="drop-overlay" hidden>
       <div class="drop-overlay-inner">Release to import</div>
     </div>
   </section>
 
-  <aside class="rail">
+  <aside class="rail" aria-label="Style controls">
 
     <section class="panel">
       <h2 class="panel-title">Image</h2>
