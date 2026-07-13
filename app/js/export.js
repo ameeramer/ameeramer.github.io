@@ -29,7 +29,11 @@ export async function exportImage(pixelScale = 2, format = 'png') {
   if (!blob) throw new Error('Export failed — canvas too large for this browser.');
   const { w, h } = outputSize(state);
   const ext = format === 'jpeg' ? 'jpg' : 'png';
-  const name = `moonshot-${w * pixelScale}x${h * pixelScale}.${ext}`;
+  // Include the platform label so exporting one shot for several targets
+  // (og / x / linkedin …) yields self-describing, non-colliding filenames.
+  const preset = state.canvas.preset;
+  const slug = (preset && preset !== 'auto' && preset !== 'custom') ? `${preset}-` : '';
+  const name = `moonshot-${slug}${w * pixelScale}x${h * pixelScale}.${ext}`;
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
