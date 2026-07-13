@@ -117,6 +117,18 @@ export function drawFramedImage(ctx, frame, x, y, geom, image, radius) {
       const url = frame.url || 'moonshot.app';
       ctx.fillText(lockGlyph() + url, px + pw / 2, py + ph / 2 + fs * 0.06, pw - fs * 2);
       ctx.textAlign = 'left';
+    } else if ((frame.title || '').trim()) {
+      // Centered macOS window title, clipped so it never overlaps the lights.
+      const fs = clamp(chromeTop * 0.38, 9, 15);
+      ctx.fillStyle = light ? '#3f3f46' : '#c4c4cc';
+      ctx.font = `500 ${fs}px "Schibsted Grotesk", -apple-system, sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      const lightsRight = x + chromeTop * 0.55 + 3 * clamp(chromeTop * 0.15, 4, 9) * 2.9;
+      const safe = (lightsRight - x) + 8;           // keep clear of the traffic lights
+      const maxW = w - safe * 2;
+      ctx.fillText(frame.title.trim(), x + w / 2, y + chromeTop / 2 + fs * 0.06, maxW);
+      ctx.textAlign = 'left';
     }
     // Hairline under bar
     ctx.fillStyle = light ? 'rgba(0,0,0,.08)' : 'rgba(255,255,255,.07)';

@@ -147,8 +147,10 @@ export function initUI() {
   const frameType = $('#frame-type');
   syncSeg(frameType, 'frame', state.frame.type);
   const urlInput = $('#frame-url');
+  const titleInput = $('#frame-title');
   const syncFrameOpts = () => {
     urlInput.hidden = state.frame.type !== 'browser';
+    titleInput.hidden = state.frame.type !== 'macos';
     $('#frame-theme').style.visibility =
       (state.frame.type === 'none') ? 'hidden' : 'visible';
   };
@@ -172,6 +174,8 @@ export function initUI() {
 
   urlInput.value = state.frame.url;
   urlInput.addEventListener('input', () => set('frame', { url: urlInput.value }));
+  titleInput.value = state.frame.title || '';
+  titleInput.addEventListener('input', () => set('frame', { title: titleInput.value }));
 
   // ── Caption ──
   const heading = $('#text-heading'), sub = $('#text-sub');

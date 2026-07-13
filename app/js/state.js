@@ -20,6 +20,7 @@ export const state = {
     type: 'macos',      // none | macos | browser | phone
     theme: 'dark',      // dark | light
     url: 'moonshot.app',
+    title: '',          // optional macOS window title
   },
 
   layout: {
