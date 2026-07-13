@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Changelog — Moonshot</title>
+<meta name="description" content="What's new in Moonshot — the privacy-first, in-browser screenshot beautifier.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='42' fill='%23f5b841'/><circle cx='66' cy='42' r='34' fill='%230a0a0c'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Schibsted+Grotesk:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/landing.css">
+<style>
+  .log-wrap { max-width: 720px; margin: 0 auto; padding: 40px 24px 90px; position: relative; z-index: 1; }
+  .log-head { text-align: center; margin-bottom: 56px; }
+  .log-head h1 { font-family: var(--font-disp); font-weight: 400; font-size: clamp(38px, 7vw, 62px); margin: 0 0 12px; }
+  .log-head p { color: var(--ink-dim); margin: 0; }
+  .entry { border-left: 1px solid var(--seam); padding: 0 0 34px 26px; position: relative; }
+  .entry::before { content: ""; position: absolute; left: -5px; top: 6px; width: 9px; height: 9px;
+    border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 4px rgba(245,184,65,.12); }
+  .entry:last-child { border-left-color: transparent; }
+  .entry .date { font-family: var(--font-mono); font-size: 11px; letter-spacing: .2em;
+    text-transform: uppercase; color: var(--ink-faint); }
+  .entry h2 { font-family: var(--font-disp); font-weight: 400; font-size: 26px; margin: 6px 0 12px; }
+  .entry ul { margin: 0; padding-left: 18px; color: var(--ink-dim); line-height: 1.9; font-size: 15px; }
+  .entry ul li::marker { color: var(--gold); }
+  .log-cta { text-align: center; margin-top: 20px; }
+</style>
+</head>
+<body>
+<div class="stars" aria-hidden="true"></div>
+
+<header class="nav">
+  <a class="brand" href="./">
+    <svg class="brand-moon" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="42" fill="#f5b841"/><circle cx="66" cy="42" r="34" fill="#0a0a0c"/></svg>
+    <span class="brand-name">Moonshot</span>
+  </a>
+  <nav class="nav-links">
+    <a href="./#features">Features</a>
+    <a href="./#pricing">Pricing</a>
+    <a class="btn small primary" href="app/">Open the studio</a>
+  </nav>
+</header>
+
+<main class="log-wrap">
+  <div class="log-head">
+    <h1>Changelog</h1>
+    <p>Every update to Moonshot, newest first. Built in the open.</p>
+  </div>
+
+  <div class="entry">
+    <div class="date">July 2026 · Launch week</div>
+    <h2>New backdrops &amp; sharper output</h2>
+    <ul>
+      <li><strong>Aurora Pack</strong> — four new premium gradients: Tidal, Dusk, Clementine and Slate Mist.</li>
+      <li><strong>JPG export</strong> alongside PNG, with transparent areas flattened to white.</li>
+      <li><strong>Share look</strong> — copy a link that reopens the studio with your exact style.</li>
+      <li>Landing gallery and an honest comparison against subscription tools.</li>
+      <li>Accessibility pass: keyboard focus rings and labelled controls.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="date">July 2026 · Release</div>
+    <h2>Moonshot goes live</h2>
+    <ul>
+      <li>Vector device frames — macOS window, browser (with custom URL) and phone.</li>
+      <li>24 curated gradient backdrops with mesh lighting and film grain, plus solids and transparent.</li>
+      <li>Canvas presets for X, OG images, Product Hunt, Instagram, Stories, App Store and more.</li>
+      <li>Serif captions with automatic contrast; a “Surprise me” randomizer.</li>
+      <li>Retina PNG export and clipboard copy — all rendered locally, nothing uploaded.</li>
+      <li>Pay once for Pro with ETH or by card via an on-ramp; no subscription.</li>
+    </ul>
+  </div>
+
+  <div class="log-cta">
+    <a class="btn big primary" href="app/">Open Moonshot Studio</a>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="footer-left">
+    <svg class="brand-moon" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="42" fill="#f5b841"/><circle cx="66" cy="42" r="34" fill="#0a0a0c"/></svg>
+    <span>Moonshot · Beautiful screenshots, locally.</span>
+  </div>
+  <div class="footer-right">
+    <a href="app/">Studio</a>
+    <a href="./#pricing">Pricing</a>
+    <a href="./#faq">FAQ</a>
+  </div>
+</footer>
+</body>
+</html>
