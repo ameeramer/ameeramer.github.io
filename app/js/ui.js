@@ -214,7 +214,15 @@ export function initUI() {
   });
 
   // ── Export ──
+  // Remember the user's last output settings across visits (isolated pref;
+  // not part of the render state schema).
+  const readPref = (k, d) => { try { return localStorage.getItem(k) || d; } catch { return d; } };
+  const writePref = (k, v) => { try { localStorage.setItem(k, v); } catch { /* private mode */ } };
+
   const scaleSel = $('#export-scale');
+  const savedScale = readPref('moonshot_export_scale', '2');
+  // Don't restore the Pro-only 3× for a free user.
+  if (savedScale !== '3' || state.pro) scaleSel.value = savedScale;
   scaleSel.addEventListener('change', () => {
     if (scaleSel.value === '3' && !state.pro) {
       scaleSel.value = '2';
@@ -223,14 +231,20 @@ export function initUI() {
       openProModal();
       toast('✦ 3× exports are a Pro feature', true);
     }
+    writePref('moonshot_export_scale', scaleSel.value);
   });
 
   const formatSel = $('#export-format');
+  formatSel.value = readPref('moonshot_export_format', 'png');
   const syncExportLabel = () => {
     $('#btn-export').textContent =
       `Export ${formatSel.value === 'jpeg' ? 'JPG' : 'PNG'}`;
   };
-  formatSel.addEventListener('change', syncExportLabel);
+  formatSel.addEventListener('change', () => {
+    writePref('moonshot_export_format', formatSel.value);
+    syncExportLabel();
+  });
+  syncExportLabel();
 
   $('#btn-export').addEventListener('click', async () => {
     const btn = $('#btn-export');
