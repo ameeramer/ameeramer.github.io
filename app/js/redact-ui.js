@@ -131,6 +131,9 @@ export function openRedactor(pristine, state, onApply) {
   $('#redact-mode').querySelectorAll('.seg-btn')
     .forEach(x => x.classList.toggle('active', x.dataset.rmode === mode));
   modal.showModal();
-  // Size after the dialog is laid out.
+  // Size immediately (fit() tolerates a not-yet-measured stage via its
+  // fallbacks) so the canvas is never left at the 300×150 default, then
+  // refine on the next frame once real layout dimensions are available.
+  fit(); redraw();
   requestAnimationFrame(() => { fit(); redraw(); });
 }
