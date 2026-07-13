@@ -39,13 +39,28 @@ function redraw() {
   ctx.drawImage(baked, 0, 0, dispW, dispH);
   // Committed regions get a subtle marker so they're visible even when the
   // underlying content blends in.
-  ctx.strokeStyle = 'rgba(245,184,65,0.9)';
   ctx.lineWidth = 1.5;
-  ctx.setLineDash([5, 3]);
   for (const r of rects) {
+    ctx.strokeStyle = 'rgba(245,184,65,0.9)';
+    ctx.setLineDash([5, 3]);
     ctx.strokeRect(r.x * scale, r.y * scale, r.w * scale, r.h * scale);
+    ctx.setLineDash([]);
+    // Per-box delete handle (× at the top-right corner).
+    const { hx, hy } = handleAt(r, dispW);
+    ctx.beginPath();
+    ctx.arc(hx, hy, HANDLE_R, 0, Math.PI * 2);
+    ctx.fillStyle = '#1a1406';
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(245,184,65,0.95)';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+    ctx.beginPath();
+    const g = HANDLE_R * 0.45;
+    ctx.moveTo(hx - g, hy - g); ctx.lineTo(hx + g, hy + g);
+    ctx.moveTo(hx + g, hy - g); ctx.lineTo(hx - g, hy + g);
+    ctx.strokeStyle = '#f5b841';
+    ctx.stroke();
   }
-  ctx.setLineDash([]);
   // In-progress drag box.
   if (drag) {
     const { x, y, w: dw, h: dh } = norm(drag);
@@ -63,6 +78,16 @@ const norm = (d) => ({
   w: Math.abs(d.x1 - d.x0), h: Math.abs(d.y1 - d.y0),
 });
 
+const HANDLE_R = 9; // display px
+
+// Delete-handle centre for a rect (image-space) in display coords, kept
+// on-canvas so edge boxes stay clickable.
+function handleAt(r, dispW) {
+  const hx = Math.min((r.x + r.w) * scale, dispW - HANDLE_R);
+  const hy = Math.max(r.y * scale, HANDLE_R);
+  return { hx, hy };
+}
+
 function localPoint(e) {
   const r = canvas.getBoundingClientRect();
   const x = Math.max(0, Math.min(r.width, (e.clientX - r.left)));
@@ -73,6 +98,17 @@ function localPoint(e) {
 function onDown(e) {
   e.preventDefault();
   const p = localPoint(e);
+  // Clicking a box's × handle removes just that box (newest first, so the
+  // handle on top wins when boxes overlap).
+  const dispW = img.width * scale;
+  for (let i = rects.length - 1; i >= 0; i--) {
+    const { hx, hy } = handleAt(rects[i], dispW);
+    if (Math.hypot(p.x - hx, p.y - hy) <= HANDLE_R + 3) {
+      rects.splice(i, 1);
+      redraw();
+      return;
+    }
+  }
   drag = { x0: p.x, y0: p.y, x1: p.x, y1: p.y };
   canvas.setPointerCapture?.(e.pointerId);
 }
