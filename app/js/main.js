@@ -149,7 +149,9 @@ window.addEventListener('keydown', (e) => {
     el.tagName === 'TEXTAREA' ||
     (el.tagName === 'INPUT' && /^(text|number|search|url|email)$/.test(el.type))
   );
-  if ((e.metaKey || e.ctrlKey) && e.key === 'e' && !inTextField) {
+  // ⌘E, and ⌘S (the reflexive "save" gesture) → export. Intercepting ⌘S also
+  // stops the browser's useless "Save page as…" dialog on a screenshot editor.
+  if ((e.metaKey || e.ctrlKey) && (e.key === 'e' || e.key === 's') && !inTextField) {
     e.preventDefault();
     document.getElementById('btn-export').click();
   }
