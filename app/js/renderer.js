@@ -7,6 +7,10 @@ import { CANVAS_PRESETS } from './presets.js';
 
 const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
 
+// Shown in the free-tier watermark so every shared export points home.
+// Update this in one place if the site moves to a custom domain.
+export const SITE_URL = 'ameeramer.github.io';
+
 // Logical output size in px (before pixelScale multiplication).
 export function outputSize(state) {
   if (state.canvas.preset === 'custom') {
@@ -142,19 +146,30 @@ export function render(state, canvas, pixelScale = 1) {
     ctx.textAlign = 'left';
   }
 
-  // 6 — Watermark (free tier)
+  // 6 — Watermark (free tier). Includes the site URL so every shared free
+  // export is a working ad — the growth loop that funds the free tier.
   if (!state.pro) {
     const fs = clamp(W * 0.014, 11, 18);
+    const brand = '✦ Made with Moonshot';
+    const sep = '  ·  ';
     ctx.font = `500 ${fs}px "Schibsted Grotesk", -apple-system, sans-serif`;
-    const label = '✦ Made with Moonshot';
-    const tw = ctx.measureText(label).width;
+    const brandW = ctx.measureText(brand + sep).width;
+    ctx.font = `500 ${fs}px "Geist Mono", ui-monospace, monospace`;
+    const urlW = ctx.measureText(SITE_URL).width;
+    const tw = brandW + urlW;
     const px = fs * 0.9, py = fs * 0.55;
     const bx = W - tw - px * 2 - fs, by = H - fs - py * 2 - fs * 0.8;
     ctx.fillStyle = light ? 'rgba(20,17,10,0.55)' : 'rgba(10,10,14,0.55)';
     roundRectPath(ctx, bx, by, tw + px * 2, fs + py * 2, (fs + py * 2) / 2);
     ctx.fill();
-    ctx.fillStyle = 'rgba(245,184,65,0.95)';
+    const cy2 = by + (fs + py * 2) / 2 + fs * 0.05;
     ctx.textBaseline = 'middle';
-    ctx.fillText(label, bx + px, by + (fs + py * 2) / 2 + fs * 0.05);
+    ctx.textAlign = 'left';
+    ctx.fillStyle = 'rgba(245,184,65,0.95)';
+    ctx.font = `500 ${fs}px "Schibsted Grotesk", -apple-system, sans-serif`;
+    ctx.fillText(brand + sep, bx + px, cy2);
+    ctx.fillStyle = light ? 'rgba(20,17,10,0.6)' : 'rgba(236,233,226,0.72)';
+    ctx.font = `500 ${fs}px "Geist Mono", ui-monospace, monospace`;
+    ctx.fillText(SITE_URL, bx + px + brandW, cy2);
   }
 }
