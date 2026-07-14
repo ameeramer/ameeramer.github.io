@@ -89,7 +89,7 @@ a { color: inherit; text-decoration: none; }
   position: relative; border-radius: 14px; overflow: hidden;
   border: 1px solid var(--seam); box-shadow: 0 40px 110px rgba(0,0,0,.6);
 }
-.board-shot img { display: block; width: 100%; height: auto; }
+.board-shot img, .board-shot video { display: block; width: 100%; height: auto; }
 .shot-caption {
   position: absolute; z-index: 2; top: 14px; left: 50%; transform: translateX(-50%) rotate(-1deg);
   font-family: var(--hand); font-size: 19px; color: #ffd98f;
