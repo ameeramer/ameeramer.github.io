@@ -399,7 +399,9 @@ export function openProModal() {
     if (amount) $('#eth-amount').textContent = `${amount} ETH (≈ $29)`;
     if (touch) {
       const wei = amount ? BigInt(Math.round(amount * 1e18)).toString() : '';
-      walletLink.href = `ethereum:${PAY_ADDRESS}@1${wei ? `?value=${wei}` : ''}`;
+      // @8453 = Base, the recommended (cheapest, fastest) network; wallets
+      // that honor EIP-681 chain ids switch to it automatically.
+      walletLink.href = `ethereum:${PAY_ADDRESS}@8453${wei ? `?value=${wei}` : ''}`;
       walletLink.hidden = false;
     }
   }).catch(() => { /* price feeds down — static hint stays */ });
