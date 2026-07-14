@@ -159,11 +159,14 @@ export function cardFace(title, body, kind = 'NOTE', W = 620) {
   x.font = '26px "Special Elite", monospace';
   x.textAlign = 'right';
   x.fillText(kind.toUpperCase().slice(0, 12), W - 28, 46);
-  // title + body
+  // title — measured so it never runs under the stamp
   x.fillStyle = '#242018';
   x.textAlign = 'left';
   x.font = '40px "Special Elite", monospace';
-  x.fillText(title.slice(0, 26), 28, 52);
+  let t = title;
+  const maxTitleW = W - 28 - 180;
+  while (t.length > 3 && x.measureText(t).width > maxTitleW) t = t.slice(0, -1);
+  x.fillText(t.length < title.length ? t.trimEnd() + '…' : t, 28, 52);
   x.font = '28px "Special Elite", monospace';
   x.fillStyle = '#3a352b';
   wrap(x, body, 28, 112, W - 56, 44);

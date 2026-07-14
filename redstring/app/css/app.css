@@ -85,7 +85,10 @@ select.tool { appearance: none; }
 
 /* ── Stage ── */
 .stage-wrap { position: relative; flex: 1; }
-#stage { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+#stage {
+  position: absolute; inset: 0; width: 100%; height: 100%; display: block;
+  touch-action: none;   /* we own all gestures — without this, mobile drags scroll the page */
+}
 .vignette {
   position: absolute; inset: 0; pointer-events: none;
   background: radial-gradient(ellipse at 46% 42%, transparent 52%, rgba(8,5,2,.55) 100%);

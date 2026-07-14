@@ -112,6 +112,27 @@ function cmdConnect(aId, bId, color) {
     },
   });
 }
+function cmdDeleteRope(id) {
+  const data = state.ropes.find(r => r.id === id);
+  if (!data) return;
+  execute({
+    do: () => {
+      state.ropes = state.ropes.filter(r => r.id !== id);
+      removeRopeInstance(id);
+      if (selectedRope?.data.id === id) selectRope(null);
+    },
+    undo: () => { state.ropes.push(data); addRopeInstance(data); },
+  });
+}
+function cmdRecolorRope(id, color) {
+  const data = state.ropes.find(r => r.id === id);
+  if (!data || data.color === color) return;
+  const before = data.color;
+  execute({
+    do: () => { data.color = color; ropes.get(id)?.mesh.setColor(color); },
+    undo: () => { data.color = before; ropes.get(id)?.mesh.setColor(before); },
+  });
+}
 function cmdEditItem(id, patch) {
   const d = state.items.find(i => i.id === id);
   const before = { ...d };
@@ -147,11 +168,34 @@ function setConnectMode(on) {
   canvasEl.style.cursor = on ? 'crosshair' : 'default';
 }
 
+// ═══ rope selection ═══
+let selectedRope = null;
+function selectRope(entry) {
+  if (selectedRope) selectedRope.mesh.setSelected(false);
+  selectedRope = entry;
+  if (entry) {
+    entry.mesh.setSelected(true);
+    interact.clearSelection();                       // one selection at a time
+    $('#yarn-color').value = entry.data.color || 'red';
+  }
+  $('#btn-delete').disabled = !entry && !interact.selected;
+}
+
 // ═══ interactions ═══
 const interact = new Interact({
   dom: canvasEl, camera, rig, items,
   callbacks: {
     isConnectMode: () => connectMode,
+    pickRope(x, y, maxDist) {
+      let best = null, bestD = maxDist;
+      for (const r of ropes.values()) {
+        const d = r.mesh.distanceTo(x, y);
+        if (d < bestD) { bestD = d; best = r; }
+      }
+      return best;
+    },
+    onRopePick(entry) { selectRope(entry === selectedRope ? null : entry); },
+    onEmptyDown() { selectRope(null); },
     onConnectPick(item) {
       if (!connectFirst) {
         connectFirst = item;
@@ -177,7 +221,8 @@ const interact = new Interact({
       retensionFor(item.id);
     },
     onSelect(item) {
-      $('#btn-delete').disabled = !item;
+      if (item && selectedRope) selectRope(null);
+      $('#btn-delete').disabled = !item && !selectedRope;
     },
     onEdit(item) {
       if (item.type === 'sticky') openEditor(item, 'text', 'What does the note say?');
@@ -259,19 +304,22 @@ $('#btn-print').addEventListener('click', () => {
 });
 $('#btn-connect').addEventListener('click', () => setConnectMode(!connectMode));
 $('#btn-delete').addEventListener('click', () => {
-  if (interact.selected) { cmdDeleteItem(interact.selected.id); interact.clearSelection(); }
+  if (selectedRope) { cmdDeleteRope(selectedRope.data.id); toast('String cut'); }
+  else if (interact.selected) { cmdDeleteItem(interact.selected.id); interact.clearSelection(); }
 });
 $('#btn-undo').addEventListener('click', () => undo() || toast('Nothing to undo'));
 $('#btn-redo').addEventListener('click', () => redo() || toast('Nothing to redo'));
 
-// yarn color (Pro beyond red)
+// yarn color (Pro beyond red). With a rope selected, this recolors it live.
 function currentYarn() { return $('#yarn-color').value; }
 $('#yarn-color').addEventListener('change', e => {
   if (!isPro() && e.target.value !== 'red') {
-    e.target.value = 'red';
+    e.target.value = selectedRope?.data.color || 'red';
     toast('Extra yarn colors are Pro', true);
     openProModal();
+    return;
   }
+  if (selectedRope) cmdRecolorRope(selectedRope.data.id, e.target.value);
 });
 
 // export board PNG (Pro)
@@ -308,9 +356,10 @@ addEventListener('keydown', e => {
   if (inField) return;
   if ((e.metaKey || e.ctrlKey) && e.key === 'z') { e.preventDefault(); e.shiftKey ? redo() : undo(); }
   else if (e.key === 'Delete' || e.key === 'Backspace') {
-    if (interact.selected) { e.preventDefault(); cmdDeleteItem(interact.selected.id); interact.clearSelection(); }
+    if (selectedRope) { e.preventDefault(); cmdDeleteRope(selectedRope.data.id); toast('String cut'); }
+    else if (interact.selected) { e.preventDefault(); cmdDeleteItem(interact.selected.id); interact.clearSelection(); }
   }
-  else if (e.key === 'Escape') { setConnectMode(false); interact.clearSelection(); }
+  else if (e.key === 'Escape') { setConnectMode(false); interact.clearSelection(); selectRope(null); }
   else if (e.key === 'c' || e.key === 'C') setConnectMode(!connectMode);
 });
 

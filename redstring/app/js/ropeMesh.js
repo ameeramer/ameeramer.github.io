@@ -30,6 +30,16 @@ function yarnMat(colorKey) {
   return texCache.get(colorKey);
 }
 
+const selCache = new Map();
+function selectedMat(colorKey) {
+  if (!selCache.has(colorKey)) {
+    const m = yarnMat(colorKey).clone();
+    m.emissiveIntensity = 0.95;
+    selCache.set(colorKey, m);
+  }
+  return selCache.get(colorKey);
+}
+
 export class RopeMesh {
   constructor(rope, colorKey = 'red') {
     this.rope = rope;
@@ -78,7 +88,27 @@ export class RopeMesh {
 
   setColor(colorKey) {
     this.colorKey = colorKey;
-    this.mesh.material = yarnMat(colorKey);
+    this.mesh.material = this._selected ? selectedMat(colorKey) : yarnMat(colorKey);
+  }
+
+  // Selection glow: a per-rope brighter clone so the shared material (and every
+  // other rope of this color) stays untouched.
+  setSelected(on) {
+    this._selected = on;
+    this.mesh.material = on ? selectedMat(this.colorKey) : yarnMat(this.colorKey);
+  }
+
+  // Nearest distance from a world point to the chain — forgiving hit-testing,
+  // because nobody can click a 0.08-unit tube exactly.
+  distanceTo(x, y) {
+    const P = this.rope.pos;
+    let best = Infinity;
+    for (let i = 0; i < this.rope.n; i++) {
+      const dx = P[i * 3] - x, dy = P[i * 3 + 1] - y;
+      const d = dx * dx + dy * dy;
+      if (d < best) best = d;
+    }
+    return Math.sqrt(best);
   }
 
   setGrowth(t) {

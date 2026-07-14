@@ -61,10 +61,16 @@ export class Interact {
         vx: 0, vy: 0, lastX: w.x, lastY: w.y,
       };
       this.dom.style.cursor = 'grabbing';
-    } else {
-      this.rig.startPan(e.clientX, e.clientY);
-      this.dom.style.cursor = 'grabbing';
+      return;
     }
+    // no item — was the click near a rope? (forgiving: nearest chain within
+    // half a unit, since the tube itself is yarn-thin)
+    const w = this.worldAt(e);
+    const rope = this.cb.pickRope ? this.cb.pickRope(w.x, w.y, 0.5) : null;
+    if (rope) { this.cb.onRopePick(rope); return; }
+    this.cb.onEmptyDown?.();
+    this.rig.startPan(e.clientX, e.clientY);
+    this.dom.style.cursor = 'grabbing';
   }
 
   move(e) {
