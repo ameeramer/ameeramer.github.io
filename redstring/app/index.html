@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#17120d">
+<title>Redstring — the investigation board</title>
+<meta name="description" content="A 3D cork board with real physics: pin evidence, connect it with living red string, crack the case. 100% in your browser, nothing uploaded.">
+<meta property="og:title" content="Redstring — the investigation board">
+<meta property="og:description" content="Pin evidence to a 3D cork board and connect it with physically-simulated red string. All local, nothing uploaded.">
+<meta property="og:image" content="https://ameeramer.github.io/redstring/board.jpg">
+<meta property="og:url" content="https://ameeramer.github.io/redstring/app/">
+<link rel="canonical" href="https://ameeramer.github.io/redstring/app/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%2317120d'/><circle cx='30' cy='34' r='10' fill='%23c22a2a'/><circle cx='72' cy='68' r='10' fill='%23c22a2a'/><path d='M30 34 Q 50 62 72 68' stroke='%23b3202a' stroke-width='5' fill='none'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Caveat:wght@500;600&family=Alegreya+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+
+<div id="loading"><span class="load-mark">◉—◉</span><span>pinning the board…</span></div>
+
+<header class="topbar">
+  <a class="brand" href="../" title="Redstring home">
+    <span class="brand-pin"></span><span class="brand-name">Redstring</span>
+  </a>
+  <input id="board-name" class="board-name" spellcheck="false" maxlength="48" aria-label="Case name">
+  <div class="tools">
+    <button class="tool" id="btn-photo" title="Pin a photo (upload)">▣ Photo</button>
+    <button class="tool" id="btn-sticky" title="Sticky note">▤ Sticky</button>
+    <button class="tool" id="btn-card" title="Index card">▥ Card</button>
+    <button class="tool" id="btn-clipping" title="Newspaper clipping">▦ Clipping</button>
+    <button class="tool" id="btn-print" title="Fingerprint card">◉ Print</button>
+    <span class="tool-sep"></span>
+    <button class="tool connect" id="btn-connect" title="Connect two items with string (C)">⟝ Connect</button>
+    <select id="yarn-color" class="tool" title="Yarn color">
+      <option value="red">red yarn</option>
+      <option value="blue">blue — Pro</option>
+      <option value="gold">gold — Pro</option>
+      <option value="black">black — Pro</option>
+      <option value="white">white — Pro</option>
+    </select>
+    <span class="tool-sep"></span>
+    <button class="tool" id="btn-delete" title="Delete selected (⌫)" disabled>✕</button>
+    <button class="tool" id="btn-undo" title="Undo (⌘Z)">↶</button>
+    <button class="tool" id="btn-redo" title="Redo (⌘⇧Z)">↷</button>
+    <button class="tool" id="btn-export" title="Export board as PNG (Pro)">⤓</button>
+    <button class="tool" id="btn-new" title="New board">⊘</button>
+    <button class="tool" id="btn-help" title="Help">?</button>
+  </div>
+  <button class="btn-pro" id="btn-pro">Unlock Pro</button>
+  <span class="pro-badge" id="pro-badge" hidden>PRO</span>
+</header>
+
+<main class="stage-wrap">
+  <canvas id="stage"></canvas>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+  <div id="hint" class="hint" role="status"></div>
+</main>
+
+<input type="file" id="file-input" accept="image/png,image/jpeg,image/webp,image/gif" hidden>
+
+<dialog id="help-modal" class="modal">
+  <form method="dialog" class="modal-body">
+    <button class="modal-close" value="cancel" aria-label="Close">✕</button>
+    <h3 class="modal-title">How to run an investigation</h3>
+    <ul class="help-list">
+      <li><b>Pin evidence</b> — photos (uploaded, stays on your device), stickies, index cards, clippings, fingerprints.</li>
+      <li><b>Drag</b> anything — the string physically follows, swings, and settles.</li>
+      <li><b>Connect</b> (<kbd>C</kbd>) — click two items and red string grows between their pins.</li>
+      <li><b>Double-click</b> a sticky, card, or clipping to edit its text.</li>
+      <li><b>Select + <kbd>⌫</kbd></b> deletes. <kbd>⌘Z</kbd> / <kbd>⌘⇧Z</kbd> undo &amp; redo everything.</li>
+      <li><b>Pan</b> the empty cork; <b>scroll</b> to zoom toward your cursor.</li>
+    </ul>
+    <p class="help-foot">Everything is local: the board lives in your browser. Nothing is uploaded, ever.</p>
+  </form>
+</dialog>
+
+<dialog id="edit-modal" class="modal">
+  <div class="modal-body">
+    <h3 class="modal-title">Edit</h3>
+    <textarea id="edit-text" class="edit-text" rows="4" maxlength="400"></textarea>
+    <div class="edit-row">
+      <button class="btn ghost" id="edit-cancel" type="button">Cancel</button>
+      <button class="btn primary" id="edit-save" type="button">Save</button>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="pro-modal" class="modal"></dialog>
+<div class="toast" id="toast" role="status"></div>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
