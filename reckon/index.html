@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101216">
+<title>Reckon — the notepad that does the math</title>
+<meta name="description" content="Type math in plain language and get live answers as you go. Units, currencies, percentages, variables, dates — 100% in your browser, nothing uploaded. Free, with a one-time $19 Pro.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ameeramer.github.io/reckon/">
+<link rel="canonical" href="https://ameeramer.github.io/reckon/">
+<meta property="og:title" content="Reckon — the notepad that does the math">
+<meta property="og:description" content="A calculating notepad. Type in plain language; watch every line resolve. Units, currencies, %, variables, dates — all local, nothing uploaded.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230f766e'/><text x='50' y='73' font-size='62' text-anchor='middle' fill='%23eafffb' font-family='Georgia,serif'>=</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/landing.css">
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a class="logo" href="#top"><span class="logo-mark">=</span>Reckon</a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#how">How it works</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#privacy">Privacy</a>
+    </div>
+    <a class="nav-cta" href="app/">Open Reckon →</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<header class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">A calculating notepad</div>
+      <h1 class="hero-title">The notepad that <em>does the math.</em></h1>
+      <p class="hero-sub">Type in plain language. Every line resolves as you go — units, currencies, percentages, variables, running totals. No formulas, no cells, no cloud.</p>
+      <div class="hero-actions">
+        <a class="btn primary" href="app/">Start reckoning — it's free</a>
+        <a class="btn" href="#demo">Try it right here ↓</a>
+      </div>
+      <p class="hero-note"><b>Nothing leaves your browser.</b> No sign-up. No tracking. Works offline.</p>
+    </div>
+
+    <!-- LIVE demo, wired to the real engine -->
+    <div class="demo" id="demo">
+      <div class="demo-bar">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="demo-title">scratchpad.reckon</span>
+        <span class="demo-live">live</span>
+      </div>
+      <div class="demo-body">
+        <textarea class="demo-input" id="demo-input" spellcheck="false" autocapitalize="off" wrap="off" aria-label="Try Reckon"></textarea>
+        <div class="demo-results" id="demo-results" aria-live="polite"></div>
+      </div>
+      <div class="demo-hint">↑ This is the real engine. Edit any line — answers update instantly.</div>
+    </div>
+  </div>
+</header>
+
+<div class="divider"></div>
+
+<!-- Features -->
+<section id="features">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-kicker">What it understands</div>
+      <h2 class="sec-title">A calculator that reads <em>the way you think.</em></h2>
+      <p class="sec-lead">Reckon parses real language into real math — with a dimensional engine that knows metres aren't seconds and dollars aren't degrees.</p>
+    </div>
+    <div class="features">
+      <div class="card reveal">
+        <div class="card-ico">＋−</div>
+        <h3>Plain-language math</h3>
+        <p>Write it how you'd say it. Words become operators.</p>
+        <code>$1,499 minus 20%</code>
+      </div>
+      <div class="card reveal">
+        <div class="card-ico">km</div>
+        <h3>Units &amp; dimensions</h3>
+        <p>Length, mass, time, data, temperature, speed — converted and cancelled correctly.</p>
+        <code>60 mph * 2 hours in miles</code>
+      </div>
+      <div class="card reveal">
+        <div class="card-ico">$€</div>
+        <h3>Currencies</h3>
+        <p>150+ currencies with symbols. Live exchange rates on Pro.</p>
+        <code>12 GBP + 40 EUR in USD</code>
+      </div>
+      <div class="card reveal">
+        <div class="card-ico">x=</div>
+        <h3>Variables &amp; totals</h3>
+        <p>Name a value once; reuse it below. <code>sum above</code> totals the block.</p>
+        <code>rent = $1,800</code>
+      </div>
+      <div class="card reveal">
+        <div class="card-ico">📅</div>
+        <h3>Dates &amp; durations</h3>
+        <p>Add days to today, subtract dates, measure spans in any unit.</p>
+        <code>today + 3 weeks</code>
+      </div>
+      <div class="card reveal">
+        <div class="card-ico">ƒx</div>
+        <h3>40+ functions</h3>
+        <p>sqrt, round, min/max, sin/cos, log, factorial — unit-aware where it counts.</p>
+        <code>sqrt(144) + 3^2</code>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Showcase ledger -->
+<section class="showcase">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-kicker">Read left to right</div>
+      <h2 class="sec-title">Every line is a little answer.</h2>
+    </div>
+    <div class="ledger" id="ledger"><!-- filled live by js --></div>
+  </div>
+</section>
+
+<!-- How it works -->
+<section id="how">
+  <div class="wrap how">
+    <div>
+      <div class="sec-kicker">Under the hood</div>
+      <h2 class="sec-title">Not a wrapper. <em>A real engine.</em></h2>
+      <p class="sec-lead" style="margin-bottom:34px">Reckon has its own little language — built from scratch, no libraries. That's what makes the natural phrasing and the unit safety possible.</p>
+      <ol class="how-steps">
+        <li>
+          <h4>Tokenize &amp; parse</h4>
+          <p>A hand-written lexer and precedence-climbing parser turn your sentence into an expression tree — currency symbols, magnitude words, factorials and all.</p>
+        </li>
+        <li>
+          <h4>Dimensional analysis</h4>
+          <p>Every value carries a dimension signature. Multiply metres by metres and you get area; add metres to seconds and Reckon tells you it can't.</p>
+        </li>
+        <li>
+          <h4>Reactive sheet</h4>
+          <p>Variables flow downward, so one edit re-runs the page top-to-bottom in a single linear pass. It feels instant because it is.</p>
+        </li>
+      </ol>
+    </div>
+    <div class="how-visual">
+      <div><span class="c"># "3 days in hours"</span></div>
+      <div><span class="k">tokens</span> → 3 · days · in · hours</div>
+      <div><span class="k">parse</span>  → convert(unit(3, day) → hour)</div>
+      <div><span class="k">dims</span>   → { time: 1 }</div>
+      <div><span class="k">eval</span>   → 259200 s</div>
+      <div><span class="v">result → 72 h</span></div>
+      <br>
+      <div><span class="c"># incompatible on purpose</span></div>
+      <div><span class="k">$5 + 2 kg</span></div>
+      <div><span class="v" style="color:#d68">✗ cannot add money and mass</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- Pricing -->
+<section id="pricing">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-kicker">Pricing</div>
+      <h2 class="sec-title">Free forever. <em>Pro once.</em></h2>
+      <p class="sec-lead">The whole calculator is free. Pro adds live rates, unlimited notes, and export — a single payment, no subscription.</p>
+    </div>
+    <div class="prices">
+      <div class="price">
+        <h3>Free</h3>
+        <div class="amt">$0</div>
+        <ul>
+          <li>The full language engine</li>
+          <li>Units, currencies, dates, functions</li>
+          <li>Up to 3 saved notes</li>
+          <li>Light &amp; dark themes</li>
+          <li>100% local &amp; offline</li>
+        </ul>
+        <a class="btn" href="app/">Open Reckon</a>
+      </div>
+      <div class="price pro">
+        <span class="price-tag">ONE-TIME</span>
+        <h3>Pro</h3>
+        <div class="amt">$19 <small>/ forever</small></div>
+        <ul>
+          <li>Everything in Free</li>
+          <li><b class="accent">Live</b> exchange rates, 160+ currencies</li>
+          <li>Unlimited notes &amp; tabs</li>
+          <li>Export any note to <code>.txt</code></li>
+          <li>Pay by crypto <b class="accent">or card</b> — no account</li>
+        </ul>
+        <a class="btn primary" href="app/#pro">Unlock Pro</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Privacy -->
+<section id="privacy" class="privacy">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-kicker">Why it's different</div>
+      <h2 class="sec-title">Your numbers never leave the page.</h2>
+      <p class="sec-lead">Reckon is a static site. There is no server to send your salary, your runway, or your recipe to — because there is no server at all.</p>
+    </div>
+    <div class="privacy-badges">
+      <span class="badge"><b>0</b> bytes uploaded</span>
+      <span class="badge"><b>No</b> account</span>
+      <span class="badge"><b>No</b> tracking or ads</span>
+      <span class="badge"><b>Works</b> offline</span>
+      <span class="badge"><b>Open</b> in any browser</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FAQ -->
+<section>
+  <div class="wrap faq">
+    <div class="sec-head">
+      <div class="sec-kicker">Questions</div>
+      <h2 class="sec-title">Good to know</h2>
+    </div>
+    <details open>
+      <summary>Is it really free?</summary>
+      <p>Yes. The entire calculating engine — every unit, currency, function, and variable — is free with no account. Pro is a one-time $19 that adds live exchange rates, unlimited notes, and export. No subscription, ever.</p>
+    </details>
+    <details>
+      <summary>How does payment work with no server?</summary>
+      <p>Pro is verified directly on the Ethereum blockchain. You send a one-time payment (by crypto, or by card through an on-ramp that delivers ETH for you), paste the transaction — or let Reckon find it — and it's confirmed on-chain in your browser. No processor, no middleman, nothing stored about you.</p>
+    </details>
+    <details>
+      <summary>Where are my notes saved?</summary>
+      <p>In your browser's local storage, on your device. They're never sent anywhere. Clear your browser data and they're gone — so export anything important (Pro).</p>
+    </details>
+    <details>
+      <summary>Does it work offline?</summary>
+      <p>The calculator runs entirely client-side, so once the page has loaded it keeps working with no connection. Only live exchange rates need the network.</p>
+    </details>
+    <details>
+      <summary>What can't it do?</summary>
+      <p>It's a calculating notepad, not a spreadsheet — there are no cells, charts, or macros. If you want fast answers to everyday math in plain language, that's exactly the point.</p>
+    </details>
+  </div>
+</section>
+
+<!-- Final CTA -->
+<section class="final">
+  <div class="wrap">
+    <h2>Stop reaching for the <em>calculator app.</em></h2>
+    <p>Open a page. Start typing. Watch it reckon.</p>
+    <a class="btn primary" href="app/" style="font-size:18px;padding:16px 28px">Open Reckon — free →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-inner">
+    <div class="logo" style="font-size:18px"><span class="logo-mark" style="width:26px;height:26px;font-size:17px">=</span>Reckon</div>
+    <div class="foot-links">
+      <a href="app/">Open app</a>
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#privacy">Privacy</a>
+      <a href="../" title="Moonshot — screenshot beautifier, by the same maker">Moonshot ↗</a>
+    </div>
+    <div>Built local-first. © 2026</div>
+  </div>
+</footer>
+
+<script type="module" src="js/landing.js"></script>
+</body>
+</html>

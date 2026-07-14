@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#111318">
+<title>Reckon — the calculating notepad</title>
+<meta name="description" content="Type math in plain language and get live answers. Units, currencies, percentages, variables, dates — 100% in your browser, nothing uploaded.">
+<meta property="og:url" content="https://ameeramer.github.io/reckon/app/">
+<link rel="canonical" href="https://ameeramer.github.io/reckon/app/">
+<meta property="og:title" content="Reckon — the calculating notepad">
+<meta property="og:description" content="A notepad that does the math. Units, currencies, %, variables — all local, nothing uploaded.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230f766e'/><text x='50' y='72' font-size='62' text-anchor='middle' fill='%23faf7f0' font-family='Georgia,serif'>=</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body data-theme="dark">
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark">=</span>
+    <span class="brand-name">Reckon</span>
+    <span class="brand-tag">the calculating notepad</span>
+  </div>
+  <nav class="tabs" id="tabs" aria-label="Documents"></nav>
+  <div class="topbar-actions">
+    <button class="icon-btn" id="btn-newtab" title="New note">＋</button>
+    <button class="icon-btn" id="btn-export" title="Export note (.txt)">⤓</button>
+    <button class="icon-btn" id="btn-theme" title="Toggle theme">◐</button>
+    <button class="icon-btn" id="btn-help" title="Cheatsheet">?</button>
+    <button class="btn ghost" id="btn-pro">Unlock&nbsp;Pro</button>
+    <span class="pro-badge" id="pro-badge" hidden>PRO</span>
+  </div>
+</header>
+
+<main class="workspace">
+  <div class="pad" id="pad">
+    <div class="gutter" id="linenums" aria-hidden="true"></div>
+    <textarea id="input" class="input" spellcheck="false" autocomplete="off"
+      autocapitalize="off" wrap="off" aria-label="Notepad — type calculations"></textarea>
+    <div class="results" id="results" aria-live="polite"></div>
+  </div>
+</main>
+
+<footer class="statusbar">
+  <span id="stat-lines">0 lines</span>
+  <span class="stat-sep">·</span>
+  <span id="stat-total">Σ —</span>
+  <span class="stat-grow"></span>
+  <span class="stat-hint">Tip: click a result to copy · <kbd>sum above</kbd> · <kbd>20% off $80</kbd> · <kbd>3 days in hours</kbd></span>
+  <span class="stat-privacy">100% local — nothing leaves your browser</span>
+</footer>
+
+<dialog id="help-modal" class="modal">
+  <form method="dialog" class="modal-body">
+    <button class="modal-close" value="cancel" aria-label="Close">✕</button>
+    <h3 class="modal-title">Cheatsheet</h3>
+    <div class="cheat-grid" id="cheat-grid"></div>
+    <p class="cheat-foot">Everything is computed locally. Type on the left, read answers on the right.</p>
+  </form>
+</dialog>
+
+<dialog id="pro-modal" class="modal"></dialog>
+<div class="toast" id="toast" role="status" popover="manual"></div>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
